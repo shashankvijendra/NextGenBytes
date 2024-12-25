@@ -66,6 +66,10 @@ func access_slice_elements() {
 	fmt.Println("prices before append", prices)
 	prices = append(prices, 200, 1000, 99)
 	fmt.Println("prices after append", prices)
+	val := []int{}
+	fmt.Println("prices before append", prices)
+	val = append(prices, 30, 40, 90)
+	fmt.Println("prices after append", val)
 }
 
 // main is the entry point of the program
