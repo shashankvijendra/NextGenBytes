@@ -51,6 +51,23 @@ func create_slice_from_func() {
 	fmt.Printf("capacity = %d\n", cap(myslice2))
 }
 
+func access_slice_elements() {
+	prices := []int{10, 20, 30}
+	fmt.Println("\033[34m Access Slice elements \033[0m")
+	fmt.Println(prices[0])
+	fmt.Println(prices[2])
+
+	fmt.Println("\033[34m Modify Slice elements \033[0m")
+	fmt.Println("prices before modification", prices)
+	prices[0] = 100
+	fmt.Println("prices after modification", prices)
+
+	fmt.Println("\033[34m Append Slice elements \033[0m")
+	fmt.Println("prices before append", prices)
+	prices = append(prices, 200, 1000, 99)
+	fmt.Println("prices after append", prices)
+}
+
 // main is the entry point of the program
 func main() {
 	// declare slice with datatype
@@ -59,4 +76,6 @@ func main() {
 	declare_slice_with_array()
 	// Create slice from func
 	create_slice_from_func()
+	// Access slice elements
+	access_slice_elements()
 }
