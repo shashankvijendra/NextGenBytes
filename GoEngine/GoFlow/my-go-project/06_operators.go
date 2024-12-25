@@ -59,7 +59,8 @@ func decrement_number() {
 	fmt.Println(b)
 }
 
-func main() {
+func arithmetic_operations() {
+	fmt.Println("\033[32m Arithmetic operations \033[0m")
 	// add Numbers
 	add_number()
 	// subtract Number
@@ -72,4 +73,17 @@ func main() {
 	increment_number()
 	// decrement Number
 	decrement_number()
+
+}
+
+func assignment_operator() {
+	fmt.Println("\033[32m Assignment operations \033[0m")
+
+}
+
+func main() {
+	// arithmetic operations
+	arithmetic_operations()
+	// assignment operator
+	assignment_operator()
 }
