@@ -78,6 +78,16 @@ func arithmetic_operations() {
 
 func assignment_operator() {
 	fmt.Println("\033[32m Assignment operations \033[0m")
+	var x = 10
+	fmt.Printf("x initial value : %d\n", x)
+	x += 5
+	fmt.Printf("x after increment : %d\n", x)
+	var v = 5
+	fmt.Printf("v initial value : %b \n", v) // 101
+
+	v >>= 3
+
+	fmt.Printf("v now is %03b \n", v) // 000
 
 }
 
