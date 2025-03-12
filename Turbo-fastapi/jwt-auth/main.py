@@ -8,6 +8,10 @@ from helper import oauth2_scheme
 
 app = FastAPI()
 
+@app.get("/")
+def read_root():
+    return {"message": "Hello, FastAPI!"}
+
 @app.post("/token")
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     user = authenticate_user(form_data.username, form_data.password)

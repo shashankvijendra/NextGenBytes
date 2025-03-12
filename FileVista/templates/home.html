@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FileVista - Home</title>
+
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            background-color: #f4f7fa;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin-top: 50px;
+        }
+
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+            border-radius: 8px;
+            padding: 12px 30px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+            border-radius: 8px;
+            padding: 12px 30px;
+            font-size: 16px;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .file-card {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            background-color: white;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .file-card:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .file-card-body {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .file-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #343a40;
+        }
+
+        .file-description {
+            font-size: 15px;
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+
+        .file-description b {
+            color: #343a40;
+        }
+
+        .file-meta {
+            font-size: 14px;
+            color: #007bff;
+        }
+
+        .text-center h1 {
+            font-size: 42px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .text-center p {
+            font-size: 18px;
+            color: #6c757d;
+        }
+
+        .text-center .btn-custom {
+            font-size: 18px;
+            padding: 14px 40px;
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+
+        @media (max-width: 768px) {
+            .file-card-body {
+                padding: 15px;
+            }
+            .file-title {
+                font-size: 18px;
+            }
+            .file-description {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Logout Button -->
+    <div class="logout-btn">
+        <a href="/logout" class="btn btn-danger">Logout</a>
+    </div>
+
+    <!-- Welcome Section -->
+    <div class="text-center">
+        <h1 class="display-4 mb-4">Welcome to FileVista</h1>
+        <p class="lead">Manage, view, and track file uploads and modifications with ease.</p>
+
+        <!-- Upload New File Button -->
+        <a href="{% url 'upload_file' %}" class="btn btn-custom mb-4">Upload New File</a>
+    </div>
+
+    <!-- Files Section -->
+    <div class="row">
+        {% if files %}
+            {% for file in files %}
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="card file-card">
+                        <div class="card-body file-card-body">
+                            <p class="file-title">{{ file.name }}</p>
+                            <p class="file-description">
+                                <b>{{ file.uploaded_by.username }}</b> uploaded this file on 
+                                <br><span class="file-meta">{{ file.uploaded_at }}</span>
+                            </p>
+                            <a href="{% url 'file_details' file.id %}" class="btn btn-custom">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-muted text-center w-100">No files uploaded yet. Upload a file to get started.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Include Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Modification - {{ file.name }}</title>
+
+    <!-- Bootstrap CSS for responsive design -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            background: linear-gradient(135deg, #6c757d, #495057);
+            font-family: 'Roboto', sans-serif;
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 700px;
+            margin-top: 80px;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        form label {
+            font-weight: bold;
+            color: #495057;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            padding: 14px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            transition: border-color 0.3s, box-shadow 0.3s ease-in-out;
+        }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        button[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 14px 22px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        .back-btn {
+            background-color: #6c757d;
+            color: white;
+            border-radius: 8px;
+            padding: 12px 22px;
+            text-decoration: none;
+            text-align: center;
+            display: block;
+            margin-top: 30px;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: #5a6268;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .alert {
+            padding: 10px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .alert.visible {
+            display: block;
+        }
+
+        /* Media Query for Mobile */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 28px;
+            }
+            .form-control {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="form-container">
+        <h1>Add Modification for {{ file.name }}</h1>
+
+        <!-- Error Alert (Optional) -->
+        <div class="alert visible" id="error-alert">
+            Please provide a valid description.
+        </div>
+
+        <!-- Modification Form -->
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="change_description">Change Description</label>
+                {{ form.change_description }}
+            </div>
+            <div class="form-group">
+                <label for="id_file" class="form-label">Select File</label>
+                {{ form.file}}
+            </div>
+
+            <button type="submit">Save Modification</button>
+        </form>
+
+        <!-- Back to Details Button -->
+        <a href="{% url 'file_details' file.id %}" class="back-btn">Back to File Details</a>
+    </div>
+</div>
+
+<!-- Include Bootstrap JS for interactivity -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
