@@ -1,5 +1,6 @@
 # views.py
-
+import cv2
+import os
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
@@ -7,9 +8,12 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
+from django.http import StreamingHttpResponse
+from django.shortcuts import render
 from .models import File
 from .forms import FileUploadForm, ModificationForm
+from django.http import HttpResponse
+
 # View to upload a file
 
 
@@ -82,3 +86,24 @@ def add_modification(request, file_id):
         form = ModificationForm()
     
     return render(request, 'add_modification.html', {'form': form, 'file': file})
+
+# Path to the video file
+VIDEO_PATH = '/home/shashank/Downloads/5e4580be20250205-101205.mp4'
+
+# Open the video file
+video_capture = cv2.VideoCapture(VIDEO_PATH)
+
+def video_stream(request):
+    # Open the video file in binary mode
+    with open(VIDEO_PATH, 'rb') as video_file:
+        # Set the content type for video (e.g., video/mp4)
+        response = HttpResponse(video_file.read(), content_type='video/mp4')
+        # Set the appropriate headers for video streaming
+        response['Content-Length'] = os.path.getsize(VIDEO_PATH)
+        response['Content-Disposition'] = 'inline; filename="video.mp4"'
+        return response
+
+def video_feed(request):
+    # Return the video stream response
+    return StreamingHttpResponse(video_stream(), content_type='multipart/x-mixed-replace; boundary=frame')
+

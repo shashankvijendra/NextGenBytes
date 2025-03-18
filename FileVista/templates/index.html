@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Streaming as Blob</title>
+</head>
+<body>
+    <h1>Video Streaming as Blob</h1>
+    
+    <video id="video-player" width="640" height="360" controls>
+        Your browser does not support the video tag.
+    </video>
+
+    <script>
+        // Fetch the video as a Blob from the backend and play it in the video element
+        fetch('/video_stream')
+            .then(response => response.blob())  // Convert the response to a Blob
+            .then(blob => {
+                // Create a URL for the Blob and set it as the video source
+                const videoUrl = URL.createObjectURL(blob);
+                const videoPlayer = document.getElementById('video-player');
+                videoPlayer.src = videoUrl;
+                videoPlayer.play();
+            })
+            .catch(error => {
+                console.error('Error loading video:', error);
+            });
+    </script>
+
+</body>
+</html>

@@ -16,4 +16,5 @@ urlpatterns = [
     path('upload/', views.upload_file, name='upload_file'),
     path('file/<int:file_id>/', views.file_details, name='file_details'),
     path('file/<int:file_id>/modify/', views.add_modification, name='add_modification'),
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('video_feed', views.video_feed, name='video_feed'),
+]
