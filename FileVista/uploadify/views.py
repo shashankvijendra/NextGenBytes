@@ -14,6 +14,7 @@ from django.shortcuts import render
 from .models import File
 from .forms import FileUploadForm, ModificationForm
 from django.http import HttpResponse
+from uploadify.manager.email_manager import send_email_via_zoho
 
 # View to upload a file
 
@@ -110,5 +111,14 @@ def video_feed(request):
     return StreamingHttpResponse(video_stream(), content_type='multipart/x-mixed-replace; boundary=frame')
 
 
+
+def email(request):
+    """Show the home page with a list of all files."""
+    send_email_via_zoho(
+        subject="e-mail testing",
+        body="Welcome to Dialmax",
+        recipient_email="shashank@e-nipuna.com"
+    )
+    return render(request, 'email.html', {})
 
 

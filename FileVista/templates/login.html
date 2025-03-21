@@ -433,18 +433,40 @@
         width: 50%;
         height: top;
       }
+      .logo-img {
+        max-width: 100%;
+        height: auto;
+      }
 
+      .google-login{
+        {
+          display: inline-block;
+          text-decoration: none;
+          background-color: #a01c4b; /* Match brand color */
+          color: #ffffff;
+          padding: 12px 24px;
+          border-radius: 8px;
+          font-size: 16px;
+          font-weight: bold;
+          background-color: #7a1739; 
+          transition: background-color 0.3s ease;
+      }
+      }
       
     </style>
 </head>
 <body>
-  <div class="google-logo-container" >
+  <div class='box'>
+    <div class='box-form'>
+  <div class="box-login-tab" >
         <img 
         src="https://lovelocal-assets.s3.ap-south-1.amazonaws.com/Artboard-1.jpg" 
-        alt="Google logo" 
-        style="max-width: 100%;height: auto; display: block; margin: 0 auto; position: absolute; top: 50%; left: 50%; transform: translate(-60%, -60%);" />
+        alt="DIALMAX Logo"
+        style="width: 20px; height: 10px;"
+        />
   </div>
-  
+  </div>
+  </div>
     <div class='box'>
         <div class='box-form'>
           <div class='box-login-tab'></div>
@@ -470,7 +492,8 @@
                 </label>
       
                   <input type='submit' id='do_login' value='GET STARTED' title='Get Started' />
-                  <a href="http://localhost:8000/auth/login/google-oauth2/">Login with Google</a>
+                  <a  class="google-login"
+                  href="http://localhost:8000/auth/login/google-oauth2/">Login with Google</a>
 
             </div>
           </div>
@@ -479,7 +502,8 @@
                 <p><button onclick="closeLoginInfo();" class='b b-info i i-left' title='Back to Sign In'></button><h3>Need Help?</h3>
           </p>
                               <div class='line-wh'></div>
-                              <button onclick="" class='b-support' title='Forgot Password?'> Forgot Password?</button>
+                              <button onclick="" class='b-support' title='Forgot Password?'>
+                                <a href="/email"> Forgot Password?</a></button>
           <button onclick="" class='b-support' title='Contact Support'> Contact Support</button>
                               <div class='line-wh'></div>
           <button onclick="" class='b-cta' title='Sign up now!'> CREATE ACCOUNT</button>

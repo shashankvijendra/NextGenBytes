@@ -17,4 +17,5 @@ urlpatterns = [
     path('file/<int:file_id>/', views.file_details, name='file_details'),
     path('file/<int:file_id>/modify/', views.add_modification, name='add_modification'),
     path('video_feed', views.video_feed, name='video_feed'),
+    path('email/', views.email, name='email'),
 ]
