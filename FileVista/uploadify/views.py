@@ -15,6 +15,7 @@ from .models import File
 from .forms import FileUploadForm, ModificationForm
 from django.http import HttpResponse
 from uploadify.manager.email_manager import send_email_via_zoho
+from credentail.settings import TO_EMAIL
 
 # View to upload a file
 
@@ -117,7 +118,7 @@ def email(request):
     send_email_via_zoho(
         subject="e-mail testing",
         body="Welcome to Dialmax",
-        recipient_email="shashank@e-nipuna.com"
+        recipient_email=TO_EMAIL
     )
     return render(request, 'email.html', {})
 
