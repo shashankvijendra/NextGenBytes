@@ -1,10 +1,11 @@
 # views.py
 import cv2
 import os
+import json
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import AuthenticationForm
+from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.shortcuts import render, get_object_or_404, redirect
@@ -19,34 +20,35 @@ from django.http import HttpResponse
 
 @login_required(login_url='login/')
 def home(request):
-    file = File.objects.all()
-    form = ModificationForm()
-    return render(request, 'home.html', {'form': form, 'files': file})    
+    """Show the home page with a list of all files."""
+    files = File.objects.all()
+    modification_form = ModificationForm()
+    return render(request, 'home.html', {
+        'modification_form': modification_form,
+        'files': files
+    })
 
 def custom_login_view(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('home')  # Redirect to home page or any other page after successful login
-            else:
-                messages.error(request, 'Invalid username or password.')
+    """Handle login attempts."""
+    if request.method == "POST":
+        data = json.loads(request.body)
+        username = data["username"]
+        password = data["password"]
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return JsonResponse({"status_code": 200, "msg": "success"})
         else:
-            messages.error(request, 'Invalid username or password.')
+            messages.error(request, "Invalid username or password.")
 
-    else:
-        form = AuthenticationForm()
-
-    return render(request, 'login.html', {'form': form})
+    return render(request, "login.html", {"form": ""})
 
 def logout_view(request):
     logout(request)
-    messages.success(request, "You have been logged out successfully.")
-    return redirect('home') 
+    messages.success(request, "Logged out successfully.")
+    return redirect('home')
 
 @login_required
 def upload_file(request):
@@ -106,4 +108,7 @@ def video_stream(request):
 def video_feed(request):
     # Return the video stream response
     return StreamingHttpResponse(video_stream(), content_type='multipart/x-mixed-replace; boundary=frame')
+
+
+
 

@@ -20,4 +20,5 @@ from uploadify.urls import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('uploadify.urls')),
+    path('auth/', include('social_django.urls', namespace='social')),
 ]
