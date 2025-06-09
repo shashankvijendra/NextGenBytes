@@ -16,7 +16,7 @@ pipe = StableDiffusionPipeline.from_pretrained(model_id)
 pipe.to(device)
 
 # Define the Ghibli-style prompt
-prompt = "Sachin tendulkar playing with his cricket bat"
+prompt = "A handsome man with wavy black hair, expressive deep brown eyes, and a well-groomed mustache. He is wearing a classic black suit with a white shirt and striped tie, exuding a vintage charm. The background is softly blurred, with a dramatic lighting effect highlighting his facial features. He holds a single red rose delicately in his hand, conveying a romantic and elegant aura."
 
 # Generate the image
 image = pipe(prompt).images[0]
