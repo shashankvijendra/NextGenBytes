@@ -82,9 +82,9 @@ class Instagram():
         time.sleep(3)
 
         emailInput = self.browser.find_elements(by='xpath',
-                                                value='//*[@name="username"]')
+                                                value='//*[@name="email"]')
         passwordInput = self.browser.find_elements(by='xpath',
-                                            value='//*[@name="password"]')
+                                            value='//*[@name="pass"]')
         print(emailInput)
         emailInput[0].send_keys("" + self.username)
         passwordInput[0].send_keys("" + self.password)
@@ -180,14 +180,15 @@ class Instagram():
         self.browser.get(f"https://www.instagram.com/{username}/")
         time.sleep(8)
         post_count = self.browser.find_element(By.XPATH, 
-                "//header/section[3]/ul/li[1]/div/span/span").text
+                "//header/div/section[2]/div[1]/div[3]/div[1]/span/span").text
         try:
             print(post_count)
             main_post_count = copy.deepcopy(int(post_count.replace(',','')))
         except Exception as err:
             print(err)
             main_post_count = 10        
-
+        download_path = os.path.join(os.getcwd(), 'temp', f'browser_downloads{username}')
+        os.makedirs(download_path, exist_ok=True)
         set_data = set()
         main_count = 0
         while main_count<=main_post_count:
@@ -199,7 +200,6 @@ class Instagram():
                 img_element = element.find_elements(By.XPATH, "//img[@style='object-fit: cover;']")
                 img_src= [(i.get_attribute("alt"), i.get_attribute("src")) for i in img_element if i.get_attribute("alt")]
                 print("--len of elements", len(img_src))
-                download_path = os.path.join(os.getcwd(), 'temp', 'browser_downloads')
                 for save_as, image_url in img_src:
                     if image_url in set_data:
                         continue
